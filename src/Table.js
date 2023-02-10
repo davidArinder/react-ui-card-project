@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import * as opportunities from "./opportunities.json";
 import Modal from "@mui/material/Modal";
-import { Card } from "@mui/material";
+import { Card, Button } from "@mui/material";
 
 const BasicTable = () => {
   /**
@@ -19,6 +19,10 @@ const BasicTable = () => {
   function handleRowClick(event, row) {
     console.log("Row", row);
     setOpen(true);
+  }
+
+  function handleButtonClick() {
+    setOpen(false);
   }
 
   const [open, setOpen] = useState(false);
@@ -60,7 +64,9 @@ const BasicTable = () => {
         </TableBody>
       </Table>
       <Modal open={open}>
-        <Card>Hello</Card>
+        <Card>
+          <Button onClick={() => handleButtonClick()}>Close</Button>
+        </Card>
       </Modal>
       ;
     </TableContainer>
