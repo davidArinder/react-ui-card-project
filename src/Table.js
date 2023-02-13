@@ -9,23 +9,28 @@ import Paper from "@mui/material/Paper";
 import * as opportunities from "./opportunities.json";
 import Modal from "@mui/material/Modal";
 import { Card, Button } from "@mui/material";
+import OppCard from "./Components/OppCard.jsx";
 
-const BasicTable = () => {
+export default function BasicTable() {
   /**
    * A basic table to display all non-nested information from opportunities.json
    */
   const data = opportunities.default;
 
-  function handleRowClick(event, row) {
+  const stuff = "stuff";
+
+  const handleRowClick = (event, row) => {
     console.log("Row", row);
+    setRowState(row);
     setOpen(true);
-  }
+  };
 
-  function handleButtonClick() {
+  const handleClose = () => {
     setOpen(false);
-  }
+  };
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [rowState, setRowState] = React.useState([{}]);
 
   return (
     <TableContainer component={Paper}>
@@ -63,14 +68,22 @@ const BasicTable = () => {
           ))}
         </TableBody>
       </Table>
-      <Modal open={open}>
-        <Card>
-          <Button onClick={() => handleButtonClick()}>Close</Button>
-        </Card>
+      <Modal open={open} onClose={handleClose}>
+        <div>
+          <OppCard
+            key={rowState.oppId}
+            oppName={rowState.oppName}
+            stage={rowState.stage}
+            repProbability={rowState.repProbability}
+            pilytixProbability={rowState.pilytixProbability}
+            pilytixTier={rowState.pilytixTier}
+            amount={rowState.amount}
+            product={rowState.product}
+            salesRepName={rowState.salesRepName}
+            probabilityHistory={rowState.probabilityHistory}
+          />
+        </div>
       </Modal>
-      ;
     </TableContainer>
   );
-};
-
-export default BasicTable;
+}
