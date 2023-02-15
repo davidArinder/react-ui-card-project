@@ -53,9 +53,12 @@ export default function OppCard(props) {
     },
   };
 
-  const labels = probabilityHistory.map((prob) => prob.daysAgo);
-  const pxProb = probabilityHistory.map((prob) => prob.pilytixProb);
-  const repProb = probabilityHistory.map((prob) => prob.repProb);
+  let labels, pxProb, repProb;
+  if (probabilityHistory !== null) {
+    labels = probabilityHistory.map((prob) => `${prob.daysAgo} days ago`);
+    pxProb = probabilityHistory.map((prob) => prob.pilytixProb);
+    repProb = probabilityHistory.map((prob) => prob.repProb);
+  }
 
   const data = {
     labels,
