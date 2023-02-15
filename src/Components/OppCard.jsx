@@ -7,6 +7,16 @@ import CardContent from "@mui/material/CardContent";
 // import CardMedia from "@material-ui/core/CardMedia";
 // import Button from "@material-ui/core/Button";
 import Typography from "@mui/material/Typography";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 export default function OppCard(props) {
   const {
@@ -21,7 +31,49 @@ export default function OppCard(props) {
     probabilityHistory,
   } = props;
 
-  console.log("probhis: ", probabilityHistory);
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom",
+      },
+      title: {
+        display: true,
+        text: "Probability History",
+      },
+    },
+  };
+
+  const labels = probabilityHistory.map((prob) => prob.daysAgo);
+  const pxProb = probabilityHistory.map((prob) => prob.pilytixProb);
+  const repProb = probabilityHistory.map((prob) => prob.repProb);
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "PX Probability",
+        labels: labels,
+        data: pxProb,
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Rep Probability",
+        data: labels,
+        data: repProb,
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
 
   return (
     <Card>
@@ -34,17 +86,7 @@ export default function OppCard(props) {
         <Typography>Amount: {amount}</Typography>
         <Typography>Product: {product}</Typography>
         <Typography>Sales Rep: {salesRepName}</Typography>
-        <Typography>
-          Probability History:
-          {probabilityHistory.map((prob) => {
-            // {
-            //   console.log("prob: ", prob.daysAgo);
-            // }
-            {
-              <Typography>{prob.daysAgo}</Typography>;
-            }
-          })}
-        </Typography>
+        <Bar options={options} data={data} />
       </CardContent>
     </Card>
   );
