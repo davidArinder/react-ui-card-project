@@ -15,6 +15,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import TabPanel from "@mui/lab/TabPanel";
+import TabContext from "@mui/lab/TabContext";
+import Box from "@mui/material/Box";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -40,6 +45,12 @@ export default function OppCard(props) {
     pilytixFactorsIncreasingWin,
     pilytixFactorsDecreasingWin,
   } = props;
+
+  const [value, setValue] = React.useState("one");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   ChartJS.register(
     CategoryScale,
@@ -90,43 +101,57 @@ export default function OppCard(props) {
 
   return (
     <Card sx={{ margin: "auto" }}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Opp Name</TableCell>
-              <TableCell align="left">Opp Stage</TableCell>
-              <TableCell align="right">Rep Probability</TableCell>
-              <TableCell align="right">PX Probability</TableCell>
-              <TableCell align="left">PX Tier</TableCell>
-              <TableCell align="right">Amount</TableCell>
-              <TableCell align="left">Product</TableCell>
-              <TableCell align="left">Sales Rep</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow
-              // onClick={(event) => handleRowClick(event, row)}
-              // key={row.oppId}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {oppName}
-              </TableCell>
-              <TableCell align="left">{stage}</TableCell>
-              <TableCell align="right">{repProbability}</TableCell>
-              <TableCell align="right">{pilytixProbability}</TableCell>
-              <TableCell align="left">{pilytixTier}</TableCell>
-              <TableCell align="right">{amount}</TableCell>
-              <TableCell align="left">{product}</TableCell>
-              <TableCell align="left">{salesRepName}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Bar options={options} data={data} />
-      <Grid container spacing={2}>
-        <Grid item sm={6}>
+      <TabContext value={value}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="secondary"
+          indicatorColor="secondary"
+          aria-label="secondary tabs example"
+        >
+          <Tab value={"one"} label="Chart" />
+          <Tab value={"two"} label="Win" />
+          <Tab value={"three"} label="Loss" />
+        </Tabs>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">Opp Name</TableCell>
+                <TableCell align="left">Opp Stage</TableCell>
+                <TableCell align="right">Rep Probability</TableCell>
+                <TableCell align="right">PX Probability</TableCell>
+                <TableCell align="left">PX Tier</TableCell>
+                <TableCell align="right">Amount</TableCell>
+                <TableCell align="left">Product</TableCell>
+                <TableCell align="left">Sales Rep</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow
+                // onClick={(event) => handleRowClick(event, row)}
+                // key={row.oppId}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {oppName}
+                </TableCell>
+                <TableCell align="left">{stage}</TableCell>
+                <TableCell align="right">{repProbability}</TableCell>
+                <TableCell align="right">{pilytixProbability}</TableCell>
+                <TableCell align="left">{pilytixTier}</TableCell>
+                <TableCell align="right">{amount}</TableCell>
+                <TableCell align="left">{product}</TableCell>
+                <TableCell align="left">{salesRepName}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TabPanel value={"one"}>
+          <Bar options={options} data={data} />
+        </TabPanel>
+
+        <TabPanel value={"two"}>
           <TableContainer>
             <Table>
               <TableBody>
@@ -143,8 +168,9 @@ export default function OppCard(props) {
               </TableBody>
             </Table>
           </TableContainer>
-        </Grid>
-        <Grid item sm={6}>
+        </TabPanel>
+
+        <TabPanel value={"three"}>
           <TableContainer>
             <Table>
               <TableBody>
@@ -161,8 +187,8 @@ export default function OppCard(props) {
               </TableBody>
             </Table>
           </TableContainer>
-        </Grid>
-      </Grid>
+        </TabPanel>
+      </TabContext>
     </Card>
   );
 }
