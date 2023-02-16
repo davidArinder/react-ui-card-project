@@ -17,10 +17,7 @@ export default function BasicTable() {
    */
   const data = opportunities.default;
 
-  const stuff = "stuff";
-
   const handleRowClick = (event, row) => {
-    console.log("Row", row);
     setRowState(row);
     setOpen(true);
   };
@@ -29,8 +26,24 @@ export default function BasicTable() {
     setOpen(false);
   };
 
-  const [open, setOpen] = React.useState(false);
-  const [rowState, setRowState] = React.useState([{}]);
+  const handleNextOpp = (oppId) => {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].oppId === oppId) {
+        setRowState(data[i + 1]);
+      }
+    }
+  };
+
+  const handlePrevOpp = (oppId) => {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].oppId === oppId) {
+        setRowState(data[i - 1]);
+      }
+    }
+  };
+
+  const [open, setOpen] = useState(false);
+  const [rowState, setRowState] = useState([{}]);
 
   return (
     <TableContainer component={Paper}>
@@ -70,6 +83,10 @@ export default function BasicTable() {
       </Table>
       <Modal open={open} onClose={handleClose}>
         <div>
+          <Button onClick={() => handlePrevOpp(rowState.oppId)}>
+            Previous
+          </Button>
+          <Button onClick={() => handleNextOpp(rowState.oppId)}>Next</Button>
           <OppCard
             key={rowState.oppId}
             oppName={rowState.oppName}
@@ -81,6 +98,8 @@ export default function BasicTable() {
             product={rowState.product}
             salesRepName={rowState.salesRepName}
             probabilityHistory={rowState.probabilityHistory}
+            pilytixFactorsIncreasingWin={rowState.pilytixFactorsIncreasingWin}
+            pilytixFactorsDecreasingWin={rowState.pilytixFactorsDecreasingWin}
           />
         </div>
       </Modal>
