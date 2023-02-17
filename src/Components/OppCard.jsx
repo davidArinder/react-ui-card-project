@@ -19,7 +19,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
-import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -33,6 +33,7 @@ import { Bar } from "react-chartjs-2";
 
 export default function OppCard(props) {
   const {
+    oppId,
     oppName,
     stage,
     repProbability,
@@ -44,6 +45,8 @@ export default function OppCard(props) {
     probabilityHistory,
     pilytixFactorsIncreasingWin,
     pilytixFactorsDecreasingWin,
+    handlePrevOpp,
+    handleNextOpp,
   } = props;
 
   const [value, setValue] = React.useState("one");
@@ -100,7 +103,14 @@ export default function OppCard(props) {
   };
 
   return (
-    <Card sx={{ margin: "auto" }}>
+    <Card
+      sx={{
+        margin: "auto",
+        boxShadow: "none",
+        // height: 500,
+        // width: 500
+      }}
+    >
       <TabContext value={value}>
         <Tabs
           value={value}
@@ -109,9 +119,9 @@ export default function OppCard(props) {
           indicatorColor="secondary"
           aria-label="secondary tabs example"
         >
-          <Tab value={"one"} label="Chart" />
-          <Tab value={"two"} label="Win" />
-          <Tab value={"three"} label="Loss" />
+          <Tab value={"one"} label="Probability history" />
+          <Tab value={"two"} label="Win Factors" />
+          <Tab value={"three"} label="Loss Factors" />
         </Tabs>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -150,7 +160,6 @@ export default function OppCard(props) {
         <TabPanel value={"one"}>
           <Bar options={options} data={data} />
         </TabPanel>
-
         <TabPanel value={"two"}>
           <TableContainer>
             <Table>
@@ -169,7 +178,6 @@ export default function OppCard(props) {
             </Table>
           </TableContainer>
         </TabPanel>
-
         <TabPanel value={"three"}>
           <TableContainer>
             <Table>
@@ -189,6 +197,8 @@ export default function OppCard(props) {
           </TableContainer>
         </TabPanel>
       </TabContext>
+      <Button onClick={() => props.handlePrevOpp(oppId)}>Previous</Button>
+      <Button onClick={() => props.handleNextOpp(oppId)}>Next</Button>
     </Card>
   );
 }

@@ -26,17 +26,17 @@ export default function BasicTable() {
     setOpen(false);
   };
 
-  const handleNextOpp = (oppId) => {
+  const handleNextOpp = () => {
     for (let i = 0; i < data.length; i++) {
-      if (data[i].oppId === oppId) {
+      if (data[i].oppId === rowState.oppId) {
         setRowState(data[i + 1]);
       }
     }
   };
 
-  const handlePrevOpp = (oppId) => {
+  const handlePrevOpp = () => {
     for (let i = 0; i < data.length; i++) {
-      if (data[i].oppId === oppId) {
+      if (data[i].oppId === rowState.oppId) {
         setRowState(data[i - 1]);
       }
     }
@@ -83,10 +83,7 @@ export default function BasicTable() {
       </Table>
       <Modal open={open} onClose={handleClose}>
         <div>
-          <Button onClick={() => handlePrevOpp(rowState.oppId)}>
-            Previous
-          </Button>
-          <Button onClick={() => handleNextOpp(rowState.oppId)}>Next</Button>
+          {/* Modal content or something instead? */}
           <OppCard
             key={rowState.oppId}
             oppName={rowState.oppName}
@@ -100,6 +97,8 @@ export default function BasicTable() {
             probabilityHistory={rowState.probabilityHistory}
             pilytixFactorsIncreasingWin={rowState.pilytixFactorsIncreasingWin}
             pilytixFactorsDecreasingWin={rowState.pilytixFactorsDecreasingWin}
+            handlePrevOpp={handlePrevOpp}
+            handleNextOpp={handleNextOpp}
           />
         </div>
       </Modal>
