@@ -13,6 +13,8 @@ import OppCard from "./Components/OppCard.jsx";
 import Box from "@mui/material/Box";
 import showAsPercent from "./utils/percentUtils.js";
 import showAsDollars from "./utils/dollarUtils.js";
+import Rating from "@mui/material/Rating";
+import numberForStars from "./utils/starUtils";
 
 export default function BasicTable() {
   /**
@@ -126,7 +128,7 @@ export default function BasicTable() {
                 {showAsPercent(row.pilytixProbability)}
               </TableCell>
               <TableCell align="left" sx={{ color: "#666666" }}>
-                {row.pilytixTier}
+                <Rating value={numberForStars(row.pilytixTier)} size="small" />
               </TableCell>
               <TableCell align="right" sx={{ color: "#666666" }}>
                 {showAsDollars.format(row.amount)}
@@ -143,7 +145,13 @@ export default function BasicTable() {
       </Table>
       <Modal open={open} onClose={handleClose}>
         {/* Modal content or something instead? */}
-        <Box m={1} display="flex" alignItems="center" flexDirection="column">
+        <Box
+          m={1}
+          display="flex"
+          alignItems="center"
+          flexDirection="column"
+          sx={{ outline: 0 }}
+        >
           <OppCard
             key={rowState.oppId}
             oppName={rowState.oppName}

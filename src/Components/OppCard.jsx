@@ -32,6 +32,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import numberForStars from "../utils/starUtils.js";
+import Rating from "@mui/material/Rating";
 
 export default function OppCard(props) {
   const {
@@ -57,7 +59,7 @@ export default function OppCard(props) {
     setValue(newValue);
   };
 
-  const handleLeftKey = () => {
+  const handleLeftKey = (e) => {
     console.log("left up");
     if (e.keyCode === 37) {
       console.log("left");
@@ -124,7 +126,8 @@ export default function OppCard(props) {
     <Card
       sx={{
         maxHeight: 850,
-        maxWidth: 850,
+        maxWidth: 1200,
+        p: 2,
       }}
     >
       <TabContext value={value}>
@@ -194,9 +197,7 @@ export default function OppCard(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
+              <TableRow>
                 <TableCell component="th" scope="row" sx={{ color: "#666666" }}>
                   {oppName}
                 </TableCell>
@@ -210,7 +211,7 @@ export default function OppCard(props) {
                   {showAsPercent(pilytixProbability)}
                 </TableCell>
                 <TableCell align="left" sx={{ color: "#666666" }}>
-                  {pilytixTier}
+                  <Rating value={numberForStars(pilytixTier)} size="small" />
                 </TableCell>
                 <TableCell align="right" sx={{ color: "#666666" }}>
                   {amount}
@@ -226,7 +227,11 @@ export default function OppCard(props) {
           </Table>
         </TableContainer>
         <TabPanel value={"one"}>
-          <Bar options={options} data={data} />
+          <Bar
+            options={options}
+            data={data}
+            style={{ maxHeight: 450, overflow: "auto" }}
+          />
         </TabPanel>
         <TabPanel value={"two"}>
           <TableContainer sx={{ maxHeight: 450, overflow: "auto" }}>
@@ -235,12 +240,15 @@ export default function OppCard(props) {
                 {pilytixFactorsIncreasingWin !== null ? (
                   pilytixFactorsIncreasingWin.map((winFactor) => (
                     <TableRow key={winFactor.name}>
-                      <TableCell sx={{ color: "#666666" }}>
+                      <TableCell sx={{ color: "#666666", fontWeight: "bold" }}>
                         {winFactor.name}
                       </TableCell>
                       <TableCell sx={{ color: "#666666" }}>
                         {winFactor.message}
                       </TableCell>
+                      <TableCell
+                        sx={{ color: "#666666" }}
+                      >{`(${winFactor.weight.description})`}</TableCell>
                     </TableRow>
                   ))
                 ) : (
@@ -259,12 +267,15 @@ export default function OppCard(props) {
                 {pilytixFactorsDecreasingWin !== null ? (
                   pilytixFactorsDecreasingWin.map((loseFactor) => (
                     <TableRow key={loseFactor.name}>
-                      <TableCell sx={{ color: "#666666" }}>
+                      <TableCell sx={{ color: "#666666", fontWeight: "bold" }}>
                         {loseFactor.name}
                       </TableCell>
                       <TableCell sx={{ color: "#666666" }}>
                         {loseFactor.message}
                       </TableCell>
+                      <TableCell
+                        sx={{ color: "#666666" }}
+                      >{`(${loseFactor.weight.description})`}</TableCell>
                     </TableRow>
                   ))
                 ) : (
@@ -288,7 +299,7 @@ export default function OppCard(props) {
         </Button>
         <Button
           onClick={() => handleNextOpp(oppId)}
-          onKeyDown={() => handleRightKey()}
+          onKeyPress={(e) => handleLeftKey(e)}
         >
           Next Opp
         </Button>
