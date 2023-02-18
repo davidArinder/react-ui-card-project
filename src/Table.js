@@ -50,6 +50,14 @@ export default function BasicTable() {
     }
   };
 
+  const handleLeftKey = (oppId) => {
+    handlePrevOpp(oppId);
+  };
+
+  const handleRightKey = (oppId) => {
+    handleNextOpp(oppId);
+  };
+
   const [open, setOpen] = useState(false);
   const [rowState, setRowState] = useState([{}]);
 
@@ -128,7 +136,11 @@ export default function BasicTable() {
                 {showAsPercent(row.pilytixProbability)}
               </TableCell>
               <TableCell align="left" sx={{ color: "#666666" }}>
-                <Rating value={numberForStars(row.pilytixTier)} size="small" />
+                <Rating
+                  value={numberForStars(row.pilytixTier)}
+                  size="small"
+                  readOnly
+                />
               </TableCell>
               <TableCell align="right" sx={{ color: "#666666" }}>
                 {showAsDollars.format(row.amount)}
@@ -144,13 +156,23 @@ export default function BasicTable() {
         </TableBody>
       </Table>
       <Modal open={open} onClose={handleClose}>
-        {/* Modal content or something instead? */}
-        <Box
+        <div
           m={1}
           display="flex"
-          alignItems="center"
-          flexDirection="column"
-          sx={{ outline: 0 }}
+          style={{
+            outline: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+          }}
+          onKeyDown={(e) => {
+            if (e.keyCode === 37) {
+              handleLeftKey(rowState.oppId);
+            } else if (e.keyCode === 39) {
+              handleRightKey(rowState.oppId);
+            }
+          }}
         >
           <OppCard
             key={rowState.oppId}
@@ -167,8 +189,9 @@ export default function BasicTable() {
             pilytixFactorsDecreasingWin={rowState.pilytixFactorsDecreasingWin}
             handlePrevOpp={handlePrevOpp}
             handleNextOpp={handleNextOpp}
+            handleClose={handleClose}
           />
-        </Box>
+        </div>
       </Modal>
     </TableContainer>
   );

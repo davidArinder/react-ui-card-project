@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { makeStyles } from "@material-ui/core/styles";
 import Card from "@mui/material/Card";
 // import CardActionArea from "@material-ui/core/CardActionArea";
@@ -22,6 +22,7 @@ import TabContext from "@mui/lab/TabContext";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import showAsPercent from "../utils/percentUtils";
+import showAsDollars from "../utils/dollarUtils.js";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -34,6 +35,8 @@ import {
 import { Bar } from "react-chartjs-2";
 import numberForStars from "../utils/starUtils.js";
 import Rating from "@mui/material/Rating";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 
 export default function OppCard(props) {
   const {
@@ -51,26 +54,13 @@ export default function OppCard(props) {
     pilytixFactorsDecreasingWin,
     handlePrevOpp,
     handleNextOpp,
+    handleClose,
   } = props;
 
   const [value, setValue] = React.useState("one");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const handleLeftKey = (e) => {
-    console.log("left up");
-    if (e.keyCode === 37) {
-      console.log("left");
-      handlePrevOpp(oppId);
-    }
-  };
-
-  const handleRightKey = () => {
-    if (e.keyCode === 39) {
-      handlePrevOpp(oppId);
-    }
   };
 
   ChartJS.register(
@@ -128,8 +118,15 @@ export default function OppCard(props) {
         maxHeight: 850,
         maxWidth: 1200,
         p: 2,
+        border: 1,
       }}
     >
+      <IconButton
+        onClick={() => handleClose()}
+        // sx={{ top: 3, right: 3, align: "right" }}
+      >
+        <CloseIcon />
+      </IconButton>
       <TabContext value={value}>
         <Tabs
           value={value}
@@ -145,7 +142,7 @@ export default function OppCard(props) {
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
-              <TableRow sx={{ margin: "5px" }}>
+              <TableRow>
                 <TableCell
                   align="left"
                   sx={{ color: "#666666", fontWeight: "bold" }}
@@ -211,10 +208,14 @@ export default function OppCard(props) {
                   {showAsPercent(pilytixProbability)}
                 </TableCell>
                 <TableCell align="left" sx={{ color: "#666666" }}>
-                  <Rating value={numberForStars(pilytixTier)} size="small" />
+                  <Rating
+                    value={numberForStars(pilytixTier)}
+                    size="small"
+                    readOnly
+                  />
                 </TableCell>
                 <TableCell align="right" sx={{ color: "#666666" }}>
-                  {amount}
+                  {showAsDollars.format(amount)}
                 </TableCell>
                 <TableCell align="left" sx={{ color: "#666666" }}>
                   {product}
@@ -289,20 +290,8 @@ export default function OppCard(props) {
         </TabPanel>
       </TabContext>
       <Box display="flex" justifyContent="space-between">
-        <Button
-          onClick={() => handlePrevOpp(oppId)}
-          onKeyDown={(e) => {
-            console.log("e: ", e);
-          }}
-        >
-          Previous Opp
-        </Button>
-        <Button
-          onClick={() => handleNextOpp(oppId)}
-          onKeyPress={(e) => handleLeftKey(e)}
-        >
-          Next Opp
-        </Button>
+        <Button onClick={() => handlePrevOpp(oppId)}>Previous Opp</Button>
+        <Button onClick={() => handleNextOpp(oppId)}>Next Opp</Button>
       </Box>
     </Card>
   );
