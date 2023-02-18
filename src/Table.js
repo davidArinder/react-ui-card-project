@@ -69,8 +69,8 @@ export default function BasicTable() {
           <TableRow>
             <TableCell
               align="left"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-              // className={styledTableCell}
+              // sx={{ color: "#666666", fontWeight: "bold" }}
+              className="TableCell"
             >
               Opp Name
             </TableCell>

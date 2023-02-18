@@ -121,12 +121,15 @@ export default function OppCard(props) {
         border: 1,
       }}
     >
-      <IconButton
-        onClick={() => handleClose()}
-        // sx={{ top: 3, right: 3, align: "right" }}
-      >
-        <CloseIcon />
-      </IconButton>
+      <Box container="true" display="flex" justifyContent="flex-end">
+        <IconButton
+          onClick={() => handleClose()}
+          // sx={{ top: 3, right: 3, align: "right" }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </Box>
+
       <TabContext value={value}>
         <Tabs
           value={value}
