@@ -2,3 +2,8 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.styledTableCell {
+  color: #666666;
+  font-weight: bold;
+}

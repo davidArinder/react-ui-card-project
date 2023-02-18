@@ -15,6 +15,7 @@ import showAsPercent from "./utils/percentUtils.js";
 import showAsDollars from "./utils/dollarUtils.js";
 import Rating from "@mui/material/Rating";
 import numberForStars from "./utils/starUtils";
+import "./styles.css";
 
 export default function BasicTable() {
   /**
@@ -69,6 +70,7 @@ export default function BasicTable() {
             <TableCell
               align="left"
               sx={{ color: "#666666", fontWeight: "bold" }}
+              // className={styledTableCell}
             >
               Opp Name
             </TableCell>
