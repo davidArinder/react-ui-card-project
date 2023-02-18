@@ -122,10 +122,7 @@ export default function OppCard(props) {
       }}
     >
       <Box container="true" display="flex" justifyContent="flex-end">
-        <IconButton
-          onClick={() => handleClose()}
-          // sx={{ top: 3, right: 3, align: "right" }}
-        >
+        <IconButton onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>
       </Box>
