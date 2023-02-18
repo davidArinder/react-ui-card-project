@@ -56,28 +56,52 @@ export default function BasicTable() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="left" sx={{ color: "#666666" }}>
+            <TableCell
+              align="left"
+              sx={{ color: "#666666", fontWeight: "bold" }}
+            >
               Opp Name
             </TableCell>
-            <TableCell align="left" sx={{ color: "#666666" }}>
+            <TableCell
+              align="left"
+              sx={{ color: "#666666", fontWeight: "bold" }}
+            >
               Opp Stage
             </TableCell>
-            <TableCell align="right" sx={{ color: "#666666" }}>
+            <TableCell
+              align="right"
+              sx={{ color: "#666666", fontWeight: "bold" }}
+            >
               Rep Probability
             </TableCell>
-            <TableCell align="right" sx={{ color: "#666666" }}>
+            <TableCell
+              align="right"
+              sx={{ color: "#666666", fontWeight: "bold" }}
+            >
               PX Probability
             </TableCell>
-            <TableCell align="left" sx={{ color: "#666666" }}>
+            <TableCell
+              align="left"
+              sx={{ color: "#666666", fontWeight: "bold" }}
+            >
               PX Tier
             </TableCell>
-            <TableCell align="right" sx={{ color: "#666666" }}>
+            <TableCell
+              align="right"
+              sx={{ color: "#666666", fontWeight: "bold" }}
+            >
               Amount
             </TableCell>
-            <TableCell align="left" sx={{ color: "#666666" }}>
+            <TableCell
+              align="left"
+              sx={{ color: "#666666", fontWeight: "bold" }}
+            >
               Product
             </TableCell>
-            <TableCell align="left" sx={{ color: "#666666" }}>
+            <TableCell
+              align="left"
+              sx={{ color: "#666666", fontWeight: "bold" }}
+            >
               Sales Rep
             </TableCell>
           </TableRow>
@@ -119,7 +143,7 @@ export default function BasicTable() {
       </Table>
       <Modal open={open} onClose={handleClose}>
         {/* Modal content or something instead? */}
-        <div>
+        <Box m={1} display="flex" alignItems="center" flexDirection="column">
           <OppCard
             key={rowState.oppId}
             oppName={rowState.oppName}
@@ -136,7 +160,7 @@ export default function BasicTable() {
             handlePrevOpp={handlePrevOpp}
             handleNextOpp={handleNextOpp}
           />
-        </div>
+        </Box>
       </Modal>
     </TableContainer>
   );

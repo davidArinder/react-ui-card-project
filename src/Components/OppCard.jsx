@@ -123,9 +123,6 @@ export default function OppCard(props) {
   return (
     <Card
       sx={{
-        margin: "auto",
-        alignItems: "center",
-        justifyContent: "center",
         maxHeight: 850,
         maxWidth: 850,
       }}
@@ -146,28 +143,52 @@ export default function OppCard(props) {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow sx={{ margin: "5px" }}>
-                <TableCell align="left" sx={{ color: "#666666" }}>
+                <TableCell
+                  align="left"
+                  sx={{ color: "#666666", fontWeight: "bold" }}
+                >
                   Opp Name
                 </TableCell>
-                <TableCell align="left" sx={{ color: "#666666" }}>
+                <TableCell
+                  align="left"
+                  sx={{ color: "#666666", fontWeight: "bold" }}
+                >
                   Opp Stage
                 </TableCell>
-                <TableCell align="right" sx={{ color: "#666666" }}>
+                <TableCell
+                  align="right"
+                  sx={{ color: "#666666", fontWeight: "bold" }}
+                >
                   Rep Probability
                 </TableCell>
-                <TableCell align="right" sx={{ color: "#666666" }}>
+                <TableCell
+                  align="right"
+                  sx={{ color: "#666666", fontWeight: "bold" }}
+                >
                   PX Probability
                 </TableCell>
-                <TableCell align="left" sx={{ color: "#666666" }}>
+                <TableCell
+                  align="left"
+                  sx={{ color: "#666666", fontWeight: "bold" }}
+                >
                   PX Tier
                 </TableCell>
-                <TableCell align="right" sx={{ color: "#666666" }}>
+                <TableCell
+                  align="right"
+                  sx={{ color: "#666666", fontWeight: "bold" }}
+                >
                   Amount
                 </TableCell>
-                <TableCell align="left" sx={{ color: "#666666" }}>
+                <TableCell
+                  align="left"
+                  sx={{ color: "#666666", fontWeight: "bold" }}
+                >
                   Product
                 </TableCell>
-                <TableCell align="left" sx={{ color: "#666666" }}>
+                <TableCell
+                  align="left"
+                  sx={{ color: "#666666", fontWeight: "bold" }}
+                >
                   Sales Rep
                 </TableCell>
               </TableRow>
@@ -208,7 +229,7 @@ export default function OppCard(props) {
           <Bar options={options} data={data} />
         </TabPanel>
         <TabPanel value={"two"}>
-          <TableContainer>
+          <TableContainer sx={{ maxHeight: 450, overflow: "auto" }}>
             <Table>
               <TableBody>
                 {pilytixFactorsIncreasingWin !== null ? (
@@ -232,7 +253,7 @@ export default function OppCard(props) {
           </TableContainer>
         </TabPanel>
         <TabPanel value={"three"}>
-          <TableContainer>
+          <TableContainer sx={{ maxHeight: 450, overflow: "auto" }}>
             <Table>
               <TableBody>
                 {pilytixFactorsDecreasingWin !== null ? (
