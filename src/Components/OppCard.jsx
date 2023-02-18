@@ -20,6 +20,8 @@ import Tab from "@mui/material/Tab";
 import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import showAsPercent from "../utils/percentUtils";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -55,6 +57,20 @@ export default function OppCard(props) {
     setValue(newValue);
   };
 
+  const handleLeftKey = () => {
+    console.log("left up");
+    if (e.keyCode === 37) {
+      console.log("left");
+      handlePrevOpp(oppId);
+    }
+  };
+
+  const handleRightKey = () => {
+    if (e.keyCode === 39) {
+      handlePrevOpp(oppId);
+    }
+  };
+
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -84,6 +100,8 @@ export default function OppCard(props) {
     repProb = probabilityHistory.map((prob) => prob.repProb);
   }
 
+  const noInfo = "No Information";
+
   const data = {
     labels,
     datasets: [
@@ -106,9 +124,10 @@ export default function OppCard(props) {
     <Card
       sx={{
         margin: "auto",
-        boxShadow: "none",
-        // height: 500,
-        // width: 500
+        alignItems: "center",
+        justifyContent: "center",
+        maxHeight: 850,
+        maxWidth: 850,
       }}
     >
       <TabContext value={value}>
@@ -124,35 +143,63 @@ export default function OppCard(props) {
           <Tab value={"three"} label="Loss Factors" />
         </Tabs>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell align="left">Opp Name</TableCell>
-                <TableCell align="left">Opp Stage</TableCell>
-                <TableCell align="right">Rep Probability</TableCell>
-                <TableCell align="right">PX Probability</TableCell>
-                <TableCell align="left">PX Tier</TableCell>
-                <TableCell align="right">Amount</TableCell>
-                <TableCell align="left">Product</TableCell>
-                <TableCell align="left">Sales Rep</TableCell>
+              <TableRow sx={{ margin: "5px" }}>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  Opp Name
+                </TableCell>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  Opp Stage
+                </TableCell>
+                <TableCell align="right" sx={{ color: "#666666" }}>
+                  Rep Probability
+                </TableCell>
+                <TableCell align="right" sx={{ color: "#666666" }}>
+                  PX Probability
+                </TableCell>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  PX Tier
+                </TableCell>
+                <TableCell align="right" sx={{ color: "#666666" }}>
+                  Amount
+                </TableCell>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  Product
+                </TableCell>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  Sales Rep
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow
-                // onClick={(event) => handleRowClick(event, row)}
-                // key={row.oppId}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" sx={{ color: "#666666" }}>
                   {oppName}
                 </TableCell>
-                <TableCell align="left">{stage}</TableCell>
-                <TableCell align="right">{repProbability}</TableCell>
-                <TableCell align="right">{pilytixProbability}</TableCell>
-                <TableCell align="left">{pilytixTier}</TableCell>
-                <TableCell align="right">{amount}</TableCell>
-                <TableCell align="left">{product}</TableCell>
-                <TableCell align="left">{salesRepName}</TableCell>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  {stage}
+                </TableCell>
+                <TableCell align="right" sx={{ color: "#666666" }}>
+                  {showAsPercent(repProbability)}
+                </TableCell>
+                <TableCell align="right" sx={{ color: "#666666" }}>
+                  {showAsPercent(pilytixProbability)}
+                </TableCell>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  {pilytixTier}
+                </TableCell>
+                <TableCell align="right" sx={{ color: "#666666" }}>
+                  {amount}
+                </TableCell>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  {product}
+                </TableCell>
+                <TableCell align="left" sx={{ color: "#666666" }}>
+                  {salesRepName}
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -167,12 +214,18 @@ export default function OppCard(props) {
                 {pilytixFactorsIncreasingWin !== null ? (
                   pilytixFactorsIncreasingWin.map((winFactor) => (
                     <TableRow key={winFactor.name}>
-                      <TableCell>{winFactor.name}</TableCell>
-                      <TableCell>{winFactor.message}</TableCell>
+                      <TableCell sx={{ color: "#666666" }}>
+                        {winFactor.name}
+                      </TableCell>
+                      <TableCell sx={{ color: "#666666" }}>
+                        {winFactor.message}
+                      </TableCell>
                     </TableRow>
                   ))
                 ) : (
-                  <TableRow></TableRow>
+                  <TableRow>
+                    <TableCell sx={{ color: "#666666" }}>{noInfo}</TableCell>
+                  </TableRow>
                 )}
               </TableBody>
             </Table>
@@ -185,20 +238,40 @@ export default function OppCard(props) {
                 {pilytixFactorsDecreasingWin !== null ? (
                   pilytixFactorsDecreasingWin.map((loseFactor) => (
                     <TableRow key={loseFactor.name}>
-                      <TableCell>{loseFactor.name}</TableCell>
-                      <TableCell>{loseFactor.message}</TableCell>
+                      <TableCell sx={{ color: "#666666" }}>
+                        {loseFactor.name}
+                      </TableCell>
+                      <TableCell sx={{ color: "#666666" }}>
+                        {loseFactor.message}
+                      </TableCell>
                     </TableRow>
                   ))
                 ) : (
-                  <TableRow></TableRow>
+                  <TableRow>
+                    <TableCell sx={{ color: "#666666" }}>{noInfo}</TableCell>
+                  </TableRow>
                 )}
               </TableBody>
             </Table>
           </TableContainer>
         </TabPanel>
       </TabContext>
-      <Button onClick={() => props.handlePrevOpp(oppId)}>Previous</Button>
-      <Button onClick={() => props.handleNextOpp(oppId)}>Next</Button>
+      <Box display="flex" justifyContent="space-between">
+        <Button
+          onClick={() => handlePrevOpp(oppId)}
+          onKeyDown={(e) => {
+            console.log("e: ", e);
+          }}
+        >
+          Previous Opp
+        </Button>
+        <Button
+          onClick={() => handleNextOpp(oppId)}
+          onKeyDown={() => handleRightKey()}
+        >
+          Next Opp
+        </Button>
+      </Box>
     </Card>
   );
 }
