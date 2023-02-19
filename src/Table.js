@@ -16,6 +16,11 @@ import numberForStars from "./utils/starUtils";
 import "./styles.css";
 import { styled } from "@mui/material/styles";
 
+// Development time: ~10 hours
+// David Arinder
+// david.arinder@gmail.com
+// I verify that the work done for this take-home assignment is my own.
+
 const StyledHeadCell = styled(TableCell)(() => ({
   color: "#666666",
   fontWeight: "bold",
