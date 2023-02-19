@@ -31,12 +31,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 
-const StyledHeadCell = styled(TableCell)(({}) => ({
+const StyledHeadCell = styled(TableCell)(() => ({
   color: "#666666",
   fontWeight: "bold",
 }));
 
-const StyledCell = styled(TableCell)(({}) => ({
+const StyledCell = styled(TableCell)(() => ({
   color: "#666666",
 }));
 
@@ -107,7 +107,7 @@ export default function OppCard(props) {
       },
       {
         label: "Rep Probability",
-        data: labels,
+        labels: labels,
         data: repProb,
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },

@@ -16,12 +16,12 @@ import numberForStars from "./utils/starUtils";
 import "./styles.css";
 import { styled } from "@mui/material/styles";
 
-const StyledHeadCell = styled(TableCell)(({}) => ({
+const StyledHeadCell = styled(TableCell)(() => ({
   color: "#666666",
   fontWeight: "bold",
 }));
 
-const StyledCell = styled(TableCell)(({}) => ({
+const StyledCell = styled(TableCell)(() => ({
   color: "#666666",
 }));
 
