@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-// import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 import Card from "@mui/material/Card";
-// import CardActionArea from "@material-ui/core/CardActionArea";
-// import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@mui/material/CardContent";
-// import CardMedia from "@material-ui/core/CardMedia";
-// import Button from "@material-ui/core/Button";
-import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,7 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabPanel from "@mui/lab/TabPanel";
@@ -37,6 +29,16 @@ import numberForStars from "../utils/starUtils.js";
 import Rating from "@mui/material/Rating";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
+
+const StyledHeadCell = styled(TableCell)(({}) => ({
+  color: "#666666",
+  fontWeight: "bold",
+}));
+
+const StyledCell = styled(TableCell)(({}) => ({
+  color: "#666666",
+}));
 
 export default function OppCard(props) {
   const {
@@ -143,86 +145,40 @@ export default function OppCard(props) {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell
-                  align="left"
-                  sx={{ color: "#666666", fontWeight: "bold" }}
-                >
-                  Opp Name
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ color: "#666666", fontWeight: "bold" }}
-                >
-                  Opp Stage
-                </TableCell>
-                <TableCell
-                  align="right"
-                  sx={{ color: "#666666", fontWeight: "bold" }}
-                >
-                  Rep Probability
-                </TableCell>
-                <TableCell
-                  align="right"
-                  sx={{ color: "#666666", fontWeight: "bold" }}
-                >
-                  PX Probability
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ color: "#666666", fontWeight: "bold" }}
-                >
-                  PX Tier
-                </TableCell>
-                <TableCell
-                  align="right"
-                  sx={{ color: "#666666", fontWeight: "bold" }}
-                >
-                  Amount
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ color: "#666666", fontWeight: "bold" }}
-                >
-                  Product
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ color: "#666666", fontWeight: "bold" }}
-                >
-                  Sales Rep
-                </TableCell>
+                <StyledHeadCell align="left">Opp Name</StyledHeadCell>
+                <StyledHeadCell align="left">Opp Stage</StyledHeadCell>
+                <StyledHeadCell align="right">Rep Probability</StyledHeadCell>
+                <StyledHeadCell align="right">PX Probability</StyledHeadCell>
+                <StyledHeadCell align="left">PX Tier</StyledHeadCell>
+                <StyledHeadCell align="right">Amount</StyledHeadCell>
+                <StyledHeadCell align="left">Product</StyledHeadCell>
+                <StyledHeadCell align="left">Sales Rep</StyledHeadCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ color: "#666666" }}>
+                <StyledCell component="th" scope="row">
                   {oppName}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "#666666" }}>
-                  {stage}
-                </TableCell>
-                <TableCell align="right" sx={{ color: "#666666" }}>
+                </StyledCell>
+                <StyledCell align="left">{stage}</StyledCell>
+                <StyledCell align="right">
                   {showAsPercent(repProbability)}
-                </TableCell>
-                <TableCell align="right" sx={{ color: "#666666" }}>
+                </StyledCell>
+                <StyledCell align="right">
                   {showAsPercent(pilytixProbability)}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "#666666" }}>
+                </StyledCell>
+                <StyledCell align="left">
                   <Rating
                     value={numberForStars(pilytixTier)}
                     size="small"
                     readOnly
                   />
-                </TableCell>
-                <TableCell align="right" sx={{ color: "#666666" }}>
+                </StyledCell>
+                <StyledCell align="right">
                   {showAsDollars.format(amount)}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "#666666" }}>
-                  {product}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "#666666" }}>
-                  {salesRepName}
-                </TableCell>
+                </StyledCell>
+                <StyledCell align="left">{product}</StyledCell>
+                <StyledCell align="left">{salesRepName}</StyledCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -241,20 +197,14 @@ export default function OppCard(props) {
                 {pilytixFactorsIncreasingWin !== null ? (
                   pilytixFactorsIncreasingWin.map((winFactor) => (
                     <TableRow key={winFactor.name}>
-                      <TableCell sx={{ color: "#666666", fontWeight: "bold" }}>
-                        {winFactor.name}
-                      </TableCell>
-                      <TableCell sx={{ color: "#666666" }}>
-                        {winFactor.message}
-                      </TableCell>
-                      <TableCell
-                        sx={{ color: "#666666" }}
-                      >{`(${winFactor.weight.description})`}</TableCell>
+                      <StyledHeadCell>{winFactor.name}</StyledHeadCell>
+                      <StyledCell>{winFactor.message}</StyledCell>
+                      <StyledCell>{`(${winFactor.weight.description})`}</StyledCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell sx={{ color: "#666666" }}>{noInfo}</TableCell>
+                    <StyledCell>{noInfo}</StyledCell>
                   </TableRow>
                 )}
               </TableBody>
@@ -268,20 +218,14 @@ export default function OppCard(props) {
                 {pilytixFactorsDecreasingWin !== null ? (
                   pilytixFactorsDecreasingWin.map((loseFactor) => (
                     <TableRow key={loseFactor.name}>
-                      <TableCell sx={{ color: "#666666", fontWeight: "bold" }}>
-                        {loseFactor.name}
-                      </TableCell>
-                      <TableCell sx={{ color: "#666666" }}>
-                        {loseFactor.message}
-                      </TableCell>
-                      <TableCell
-                        sx={{ color: "#666666" }}
-                      >{`(${loseFactor.weight.description})`}</TableCell>
+                      <StyledHeadCell>{loseFactor.name}</StyledHeadCell>
+                      <StyledCell>{loseFactor.message}</StyledCell>
+                      <StyledCell>{`(${loseFactor.weight.description})`}</StyledCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell sx={{ color: "#666666" }}>{noInfo}</TableCell>
+                    <StyledCell>{noInfo}</StyledCell>
                   </TableRow>
                 )}
               </TableBody>

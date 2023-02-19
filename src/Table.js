@@ -8,14 +8,22 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import * as opportunities from "./opportunities.json";
 import Modal from "@mui/material/Modal";
-import { Card, Button } from "@mui/material";
 import OppCard from "./Components/OppCard.jsx";
-import Box from "@mui/material/Box";
 import showAsPercent from "./utils/percentUtils.js";
 import showAsDollars from "./utils/dollarUtils.js";
 import Rating from "@mui/material/Rating";
 import numberForStars from "./utils/starUtils";
 import "./styles.css";
+import { styled } from "@mui/material/styles";
+
+const StyledHeadCell = styled(TableCell)(({}) => ({
+  color: "#666666",
+  fontWeight: "bold",
+}));
+
+const StyledCell = styled(TableCell)(({}) => ({
+  color: "#666666",
+}));
 
 export default function BasicTable() {
   /**
@@ -67,54 +75,14 @@ export default function BasicTable() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell
-              align="left"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-            >
-              Opp Name
-            </TableCell>
-            <TableCell
-              align="left"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-            >
-              Opp Stage
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-            >
-              Rep Probability
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-            >
-              PX Probability
-            </TableCell>
-            <TableCell
-              align="left"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-            >
-              PX Tier
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-            >
-              Amount
-            </TableCell>
-            <TableCell
-              align="left"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-            >
-              Product
-            </TableCell>
-            <TableCell
-              align="left"
-              sx={{ color: "#666666", fontWeight: "bold" }}
-            >
-              Sales Rep
-            </TableCell>
+            <StyledHeadCell align="left">Opp Name</StyledHeadCell>
+            <StyledHeadCell align="left">Opp Stage</StyledHeadCell>
+            <StyledHeadCell align="right">Rep Probability</StyledHeadCell>
+            <StyledHeadCell align="right">PX Probability</StyledHeadCell>
+            <StyledHeadCell align="left">PX Tier</StyledHeadCell>
+            <StyledHeadCell align="right">Amount</StyledHeadCell>
+            <StyledHeadCell align="left">Product</StyledHeadCell>
+            <StyledHeadCell align="left">Sales Rep</StyledHeadCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -123,35 +91,30 @@ export default function BasicTable() {
               onClick={(event) => handleRowClick(event, row)}
               key={row.oppId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              hover={true}
             >
-              <TableCell component="th" scope="row" sx={{ color: "#666666" }}>
+              <StyledCell component="th" scope="row">
                 {row.oppName}
-              </TableCell>
-              <TableCell align="left" sx={{ color: "#666666" }}>
-                {row.stage}
-              </TableCell>
-              <TableCell align="right" sx={{ color: "#666666" }}>
+              </StyledCell>
+              <StyledCell align="left">{row.stage}</StyledCell>
+              <StyledCell align="right">
                 {showAsPercent(row.repProbability)}
-              </TableCell>
-              <TableCell align="right" sx={{ color: "#666666" }}>
+              </StyledCell>
+              <StyledCell align="right">
                 {showAsPercent(row.pilytixProbability)}
-              </TableCell>
-              <TableCell align="left" sx={{ color: "#666666" }}>
+              </StyledCell>
+              <StyledCell align="left">
                 <Rating
                   value={numberForStars(row.pilytixTier)}
                   size="small"
                   readOnly
                 />
-              </TableCell>
-              <TableCell align="right" sx={{ color: "#666666" }}>
+              </StyledCell>
+              <StyledCell align="right">
                 {showAsDollars.format(row.amount)}
-              </TableCell>
-              <TableCell align="left" sx={{ color: "#666666" }}>
-                {row.product}
-              </TableCell>
-              <TableCell align="left" sx={{ color: "#666666" }}>
-                {row.salesRepName}
-              </TableCell>
+              </StyledCell>
+              <StyledCell align="left">{row.product}</StyledCell>
+              <StyledCell align="left">{row.salesRepName}</StyledCell>
             </TableRow>
           ))}
         </TableBody>
